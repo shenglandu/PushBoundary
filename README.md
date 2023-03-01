@@ -51,9 +51,9 @@ Train the model using:
 
 Test the model using:
 
-        python test_models.py
+        python test_s3dis.py
 
-In L101, you can specify your model directory.
+In L11, you can specify your model directory.
 
 ## Outdoor Semantic Segmentation (SensatUrban)
 Under preparation ......
