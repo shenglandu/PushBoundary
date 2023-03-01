@@ -5,13 +5,13 @@ This repo is implementation for [Push-the-Boundary: Boundary-aware Feature Propo
 ![overview](img/overview.png)
 
 ## Baseline Reference
-Two networks [PointNet](https://github.com/yanx27/Pointnet_Pointnet2_pytorch) and [KP-Conv](https://github.com/HuguesTHOMAS/KPConv-PyTorch) are adopted as baselines in our work. 
+Two networks [PointNet++](https://github.com/yanx27/Pointnet_Pointnet2_pytorch) and [KP-Conv](https://github.com/HuguesTHOMAS/KPConv-PyTorch) are adopted as baselines in our work. 
 
 ## Installation
 The codes using both baselines are tested on Ubuntu 20.04, Python 3.8. Install the following dependencies:
 - numpy
 - scikit-learn 0.23.2
-- Pytorch 1.7.1
+- pytorch 1.7.1
 - cudatoolkit 10.1
 
 For KP-Conv backbone, you also need to compile the C++ extension modules in `cpp_wrappers`. Open a terminal in this folder, and run:
@@ -31,7 +31,7 @@ For running PointNet++ backbone, use the data extracted from `pointnet_data_s3di
 - boundary, i.e., 0 for interior and 1 for boundary
 - direction, i.e., dx, dy, dz
 
-For running PointNet++ backbone, use the data extracted from `kpconv_data_s3dis/s3dis.zip`. The scenes are stored in .ply format, containing the same fields. You can also find the subsampled point clouds using the default voxel size of 5cm. Unzip the data and put both the original point clouds and the subsampled point clouds under the folder `KPCOnv_Backbone/data_s3dis/`.Note that there is an additional field "dis_boundary", denoting the distance from current point to the closest boundary point. However, this field is not used in our final network.
+For running KP-Conv backbone, use the data extracted from `kpconv_data_s3dis/s3dis.zip`. The scenes are stored in .ply format, containing the same fields. You can also find the subsampled point clouds using the default voxel size of 5cm. Unzip the data and put both the original point clouds and the subsampled point clouds under the folder `KPConv_Backbone/data_s3dis/`.Note that there is an additional field "dis_boundary", denoting the distance from current point to the closest boundary point. However, this field is not used in our final network.
 
 ### Running using the baseline PointNet++
 Train the model using:
