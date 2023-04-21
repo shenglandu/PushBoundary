@@ -178,11 +178,10 @@ class ModelTrainer:
         Validation method for cloud segmentation models
         """
         # Initializing
-        t0 = time.time()
         val_smooth = 0.95
         softmax = torch.nn.Softmax(1)
-        if val_loader.dataset.validation_split not in val_loader.dataset.all_splits:
-            return
+        # if val_loader.dataset.validation_split not in val_loader.dataset.all_splits:
+        #     return
         nc_tot = val_loader.dataset.num_classes
         nc_model = config.num_classes
         nc_boundary = val_loader.dataset.num_boundaries
@@ -269,6 +268,8 @@ class ModelTrainer:
                 if label_value in val_loader.dataset.ignored_labels:
                     probs = np.insert(probs, l_ind, 0, axis=1)
             preds = val_loader.dataset.label_values[np.argmax(probs, axis=1)]
+            if len(preds) <= 2:  # ensure the batch size is not too small
+                continue
             Confs[i, :, :] = fast_confusion(truth, preds, val_loader.dataset.label_values).astype(np.int32)
         C = np.sum(Confs, axis=0).astype(np.float32)
         for l_ind, label_value in reversed(list(enumerate(val_loader.dataset.label_values))):
@@ -282,6 +283,8 @@ class ModelTrainer:
         bConfs = np.zeros((len(bpredictions), nc_boundary, nc_boundary), dtype=np.int32)
         for i, (bprobs, truth) in enumerate(zip(bpredictions, btargets)):
             bpreds = val_loader.dataset.boundary_values[np.argmax(bprobs, axis=1)]
+            if len(bpreds) <= 2:  # ensure the batch size is not too small
+                continue
             bConfs[i, :, :] = fast_confusion(truth, bpreds, val_loader.dataset.boundary_values).astype(np.int32)
         bC = np.sum(bConfs, axis=0).astype(np.float32)
         bIoUs = IoU_from_confusions(bC)
