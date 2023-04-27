@@ -31,7 +31,7 @@ For running PointNet++ backbone, use the data extracted from `pointnet_data_s3di
 - boundary, i.e., 0 for interior and 1 for boundary
 - direction, i.e., dx, dy, dz
 
-For running KP-Conv backbone, use the data extracted from `kpconv_data_s3dis/s3dis.zip`. The scenes are stored in .ply format, containing the same fields. You can also find the subsampled point clouds using the default voxel size of 5cm. Unzip the data and put both the original point clouds and the subsampled point clouds under the folder `KPConv_Backbone/data_s3dis/`.Note that there is an additional field "dis_boundary", denoting the distance from current point to the closest boundary point. However, this field is not used in our final network.
+For running KP-Conv backbone, use the data extracted from `kpconv_data_s3dis/s3dis.zip`. The scenes are stored in .ply format, containing the same fields. You can also find the subsampled point clouds using the default voxel size of 5cm. Unzip the data and put both the original point clouds and the subsampled point clouds under the folder `KPConv_Backbone/data_s3dis/`. Note that there is an additional field "dis_boundary", denoting the distance from current point to the closest boundary point. However, this field is not used in our final network.
 
 ### Running using the baseline PointNet++
 Train the model using:
@@ -51,12 +51,30 @@ Train the model using:
 
 Test the model using:
 
-        python test_s3dis.py
+        python test_models.py
 
-In L11, you can specify your model directory.
+In L12, you can specify your model directory.
 
 ## Outdoor Semantic Segmentation (SensatUrban)
-Under preparation ......
+### Data Preparation
+Download the data from the [data](https://surfdrive.surf.nl/files/index.php/s/ku7ZExu9R5oDSlJ) link, use the data extracted from `data_sensaturban.zip`. The scenes are stored in .ply format. Unzip the data and put both the original point clouds and the subsampled point clouds under the folder `KPConv_Backbone/data_sensat/`. The subsampled point clouds are pre-processed and contain the following fields:
+- coordinate, i.e., x, y, z
+- color, i.e., r, g, b
+- label (this information is only contained in the training and validation set)
+- boundary, i.e., 0 for interior and 1 for boundary (this information is only contained in the training and validation set)
+- direction, i.e., dx, dy, dz (this information is only contained in the training and validation set)
+Note that normal information is contained but not used in our final network.
+
+### Running using the baseline KP-Conv
+Train the model using:
+
+        python train_SensatUrban_boundary.py
+
+Test the model using:
+
+        python test_models.py
+
+In L12, you can specify your model directory.
 
 ## Visualization
 The segmentation outputs are stored as .ply files which contain the predictions of pointwise boundaries, directions and semantic classes. They can be visualized using various softwares (e.g., [Easy3D](https://github.com/LiangliangNan/Easy3D), [CloudCompare](https://www.danielgm.net/cc/), [MeshLab](https://www.meshlab.net/)).
