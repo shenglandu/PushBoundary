@@ -60,10 +60,11 @@ In L12, you can specify your model directory.
 Download the data from the [data](https://surfdrive.surf.nl/files/index.php/s/ku7ZExu9R5oDSlJ) link, use the data extracted from `data_sensaturban.zip`. The scenes are stored in .ply format. Unzip the data and put both the original point clouds and the subsampled point clouds under the folder `KPConv_Backbone/data_sensat/`. The subsampled point clouds are pre-processed and contain the following fields:
 - coordinate, i.e., x, y, z
 - color, i.e., r, g, b
-- label (this information is only contained in the training and validation set)
-- boundary, i.e., 0 for interior and 1 for boundary (this information is only contained in the training and validation set)
-- direction, i.e., dx, dy, dz (this information is only contained in the training and validation set)
-Note that normal information is contained but not used in our final network.
+- label
+- boundary, i.e., 0 for interior and 1 for boundary
+- direction, i.e., dx, dy, dz
+
+Note that normal information is contained but not used in our final network. Information of label, boundary, and direction is not available in the test set, i.e., Birmingham block 2 and 8, Cambridge block 15, 16, 22 and 27.
 
 ### Running using the baseline KP-Conv
 Train the model using:
