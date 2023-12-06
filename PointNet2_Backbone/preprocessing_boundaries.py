@@ -9,7 +9,7 @@ from os import listdir, makedirs
 from os.path import exists, join
 
 import numpy as np
-import ply
+# import ply
 from sklearn.neighbors import KDTree
 import time
 import math
