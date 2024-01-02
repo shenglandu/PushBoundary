@@ -430,6 +430,7 @@ class SensatDataset(PointCloudDataset):
                     with open(proj_file, 'rb') as f:
                         if self.set == 'validation':
                             proj_inds, labels = pickle.load(f)
+                            self.validation_labels += [labels]
                         else:
                             proj_inds = pickle.load(f)
                 else:
